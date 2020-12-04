@@ -2,7 +2,7 @@
   "name": "new-vk-app",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/Arboker/vk_diary.git",
+  "homepage": "https://arboker.github.io/vk_diary/",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
@@ -25,7 +25,7 @@
     "@vkontakte/vkui": "^3.12.0",
     "babel-eslint": "^10.1.0",
     "chalk": "^2.4.2",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.0",
     "eruda": "^2.3.3",
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
