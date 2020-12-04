@@ -81,6 +81,9 @@ class CreateQuestion extends React.Component {
                 this.props.errorModal(error)
             }
         }
+        else {
+            this.props.errorModal("Вы не создали вопрос!")
+        }
     }
 
     answer = event => {
