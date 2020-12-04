@@ -2,7 +2,7 @@
   "name": "new-vk-app",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://arboker.github.io/vk_diary/",
+  "homepage": "https://arboker.github.io/vk_diary",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",

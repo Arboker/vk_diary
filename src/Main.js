@@ -181,6 +181,7 @@ class Main extends React.Component {
                             color: "white", cursor: "pointer", borderRadius: 50, padding: 15
                         }}
                             onClick={() => this.changeQuestionScreen("true", "", "", "", "")}></Icon24Add>
+                            
                     </div>
                 </FixedLayout>
             </div>
