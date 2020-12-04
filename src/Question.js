@@ -32,92 +32,97 @@ class Question extends React.Component {
     }
 
     componentDidMount = () => {
-    // this.updateCanvas();
+        // this.updateCanvas();
         this.updateCanvas();
         // alert(this.props.creator)
 
 
         if (!this.props.isFromCategory) {
-        if (this.props.isNew) {
-            const paramsURL = new URLSearchParams(window.location.search);
-            fetch('https://diary-2212.herokuapp.com/newquestion?' + paramsURL)
-                .then(response => response.json())
-                .then(data => { this.setState({ question: data, loaded: true }); });
+            if (this.props.isNew) {
+                const paramsURL = new URLSearchParams(window.location.search);
+                fetch('https://diary-2212.herokuapp.com/newquestion?' + paramsURL)
+                    .then(response => response.json())
+                    .then(data => { this.setState({ question: data, loaded: true }); });
+            }
+            else {
+                this.loadAllAnswers();
+            }
         }
         else {
             this.loadAllAnswers();
         }
-    }
-    else {
-        this.loadAllAnswers();
-    }
-        
+
     }
 
     loadAllAnswers = () => {
         const paramsURL = new URLSearchParams(window.location.search);
 
-                if (this.props.loadingAnswer) {
+        if (this.props.loadingAnswer) {
 
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ question: this.state.title })
-                    };
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: this.state.title })
+            };
 
-                    const requestOptionsUser = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ question: this.state.title, creator: this.props.creator })
-                    };
+            const requestOptionsUser = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: this.state.title, creator: this.props.creator })
+            };
 
-                    if (this.state.hrefInsert == "insertanswer") {
-                        fetch('https://diary-2212.herokuapp.com/allanswers?' + paramsURL, requestOptions)
-                            .then(response => response.json())
-                            .then(data => { this.setState({ answers: data, loaded: true, loadingAnswered: true }); this.props.changeProps() });
-                    }
-                    else {
-                        fetch('https://diary-2212.herokuapp.com/allanswersusers?' + paramsURL, requestOptionsUser)
-                            .then(response => response.json())
-                            .then(data => { this.setState({ answers: data, loaded: true, loadingAnswer: true }); this.props.changeProps() });
-                    }
-                }
+            if (this.state.hrefInsert == "insertanswer") {
+                fetch('https://diary-2212.herokuapp.com/allanswers?' + paramsURL, requestOptions)
+                    .then(response => response.json())
+                    .then(data => { this.setState({ answers: data, loaded: true, loadingAnswered: true }); this.props.changeProps() });
+            }
+            else {
+                fetch('https://diary-2212.herokuapp.com/allanswersusers?' + paramsURL, requestOptionsUser)
+                    .then(response => response.json())
+                    .then(data => { this.setState({ answers: data, loaded: true, loadingAnswer: true }); this.props.changeProps() });
+            }
+        }
     }
 
     insertAnswer = () => {
         const questionTitle = !this.props.isFromCategory ? this.props.isNew ? this.state.question.toString() : this.state.title : this.state.title;
 
         if (this.state.answer != undefined) {
-        if (this.state.answer.replace(/\s/g, '').length != 0) {
-        const paramsURL = new URLSearchParams(window.location.search);
-        const date = new Date();
-        const dateQuestion = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + (date.getDate())).slice(-2);
-            var requestOptions;
-            if (this.state.hrefInsert == "insertanswer") {
-                requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: questionTitle,
-                        answer: this.state.answer, date: dateQuestion
-                    })
-                };
+            if (this.state.answer.replace(/\s/g, '').length > 999) {
+                this.props.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
             }
             else {
-                requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: this.state.question.toString(),
-                        answer: this.state.answer, date: dateQuestion, creator: this.props.creator
-                    })
-                };
+                if (this.state.answer.replace(/\s/g, '').length != 0) {
+                const paramsURL = new URLSearchParams(window.location.search);
+                const date = new Date();
+                const dateQuestion = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + (date.getDate())).slice(-2);
+                var requestOptions;
+                if (this.state.hrefInsert == "insertanswer") {
+                    requestOptions = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            question: questionTitle,
+                            answer: this.state.answer, date: dateQuestion
+                        })
+                    };
+                }
+                else {
+                    requestOptions = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            question: this.state.question.toString(),
+                            answer: this.state.answer, date: dateQuestion, creator: this.props.creator
+                        })
+                    };
+                }
+                fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
+                    .then(response => response.json())
+                    .then(data => this.props.changeToMain(this.props.isFromCategory));
             }
-            fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
-                .then(response => response.json())
-                .then(data => this.props.changeToMain(this.props.isFromCategory));
-    }
-}
+        }
+        }
     }
 
     handleChange = event => {
@@ -300,18 +305,18 @@ class Question extends React.Component {
             var textToShow = str.substring(0, length - ending.length)
             const changeStr = () => {
                 if (findShowAllText == undefined) {
-                this.setState({
-                    showAllText: this.state.showAllText.concat(answerID)
-                })
-            }
-            else {
-                this.setState({
-                    showAllText: this.state.showAllText.filter(id => id !== answerID)
-                })
-            }
+                    this.setState({
+                        showAllText: this.state.showAllText.concat(answerID)
+                    })
+                }
+                else {
+                    this.setState({
+                        showAllText: this.state.showAllText.filter(id => id !== answerID)
+                    })
+                }
                 showTXT = true;
             }
-            
+
             return (
                 <div>
                     <div
@@ -322,7 +327,7 @@ class Question extends React.Component {
                             {findShowAllText == undefined ? textToShow : str}</Text>
                     </div>
                     <div
-                    style={{marginLeft: 28, marginTop: 2}}
+                        style={{ marginLeft: 28, marginTop: 2 }}
                         onClick={() => changeStr()}>
                         <Text
                             style={{
@@ -435,9 +440,9 @@ class Question extends React.Component {
                                                             <Text style={{ fontSize: 19, marginLeft: 3 }}> {day} {monthNames[month - 1]} {year}</Text> </div>
 
                                                         <div style={{ display: "flex", alignItems: "center", marginBottom: 5, cursor: "pointer", justifyContent: "space-between" }}>
-                                                     
-                                                                {/* <Text style={{ fontSize: 19, marginLeft: 5, wordBreak: "break-word" }}>{this.text_truncate(data.answer)}</Text> */}
-                                                                {this.text_truncate(data.answerID, data.answer)}
+
+                                                            {/* <Text style={{ fontSize: 19, marginLeft: 5, wordBreak: "break-word" }}>{this.text_truncate(data.answer)}</Text> */}
+                                                            {this.text_truncate(data.answerID, data.answer)}
                                                         </div>
                                                     </div>
 
@@ -451,7 +456,7 @@ class Question extends React.Component {
                                                     backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
                                                     borderRadius: 6, padding: "5px 10px"
                                                 }}
-                                                onClick={() => this.share()}>
+                                                    onClick={() => this.share()}>
                                                     <Icon24Share style={{ marginRight: 5, color: "white" }} />
                                                     <Text style={{ fontSize: 18, color: "white" }}>Поделиться</Text>
                                                 </div>
@@ -461,7 +466,7 @@ class Question extends React.Component {
                                                     backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
                                                     borderRadius: 6, padding: "5px 10px"
                                                 }}
-                                                onClick={() => this.showHistory()}>
+                                                    onClick={() => this.showHistory()}>
                                                     <Icon24Story style={{ marginRight: 5, color: "white" }} />
                                                     <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Спросить у друзей</Text>
                                                 </div>

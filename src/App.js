@@ -331,11 +331,18 @@ class App extends React.Component {
 						})
 					})
 			}
+		 if (this.state.questionText.replace(/\s/g, '').length > 999) {
+				this.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
+			}
 		}
 	}
 
 	changeAnswer = () => {
 		const paramsURL = new URLSearchParams(window.location.search);
+		if (this.state.newAnswer.length > 999) {
+			this.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
+		}
+		else {
 		if (this.state.newAnswer != "") {
 			const requestOptions = {
 				method: 'POST',
@@ -366,6 +373,7 @@ class App extends React.Component {
 					})
 			}
 		}
+	}
 	}
 
 	checkForHash = () => {
@@ -467,7 +475,6 @@ class App extends React.Component {
 
 	render() {
 		const history = this.state.history;
-		console.log(history)
 		const modal = (
 			<ModalRoot
 				activeModal={this.state.activeModal}
@@ -714,6 +721,7 @@ class App extends React.Component {
 											history: [...this.state.history, "modal_question"]
 										})
 									}}
+									openDefault={(title, error) => this.openDefault(title, error) }
 									isNew={this.checkForIsNew()}
 									changeToMain={(state) => { 
 										this.handleConnectionChange();

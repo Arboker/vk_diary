@@ -2,12 +2,13 @@
   "name": "new-vk-app",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/Arboker/vk_diary.git",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "vk-miniapps-deploy"
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
     "firebase-tools": "^8.13.1",
+    "gh-pages": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",
