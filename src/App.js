@@ -560,7 +560,7 @@ class App extends React.Component {
 					header="Что вас не устраивает в вопросе?"
 					caption={<Textarea style={{ marginTop: 15 }} top="" onChange={this.handleReport} />}
 					actions={[{
-						title: 'Пожаловатся',
+						title: 'Пожаловаться',
 						mode: 'primary',
 						action: () => {
 							this.reportQuestion()
