@@ -323,7 +323,7 @@ class App extends React.Component {
 					.then(response => response.json())
 					.then(data => {
 						if (data == "Limit") {
-							this.openDefault("Ошибка", "Во избежения флуда, ответье еще раз!")
+							this.openDefault("Ошибка", "Во избежание флуда, ответьте ещё раз!")
 						}
 						this.setState({
 							loadingAnswer: true,
@@ -332,7 +332,7 @@ class App extends React.Component {
 					})
 			}
 		 if (this.state.questionText.replace(/\s/g, '').length > 999) {
-				this.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
+				this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
 			}
 		}
 	}
@@ -340,7 +340,7 @@ class App extends React.Component {
 	changeAnswer = () => {
 		const paramsURL = new URLSearchParams(window.location.search);
 		if (this.state.newAnswer.length > 999) {
-			this.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
+			this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
 		}
 		else {
 		if (this.state.newAnswer != "") {
@@ -425,28 +425,30 @@ class App extends React.Component {
 	}
 
 	reportQuestion = () => {
-		if (this.state.reportText < 999) {
-		const paramsURL = new URLSearchParams(window.location.search);
-		let body = document.getElementById('main');
-		const requestOptions = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ questionID: this.state.idQuestion, text: this.state.reportText })
-		};
-		fetch("https://diary-2212.herokuapp.com/complaint?" + paramsURL, requestOptions)
-			.then(response => response.json())
-			.then(data => data.map(item => {
-				if (item == 'Already Reported') {
-					this.openDefault("Ошибка", "Извините, вы уже пожаловались на данный вопрос!")
-				}
-				else {
-					this.openDefault("Принято", "Спасибо, ваша жалоба находится на рассмотрении!")
-				}
-			})
-			)
+		if (this.state.reportText.length > 999) {
+			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
 		}
 		else {
-			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов") 	
+			if (this.state.reportText.length != 0) {
+				const paramsURL = new URLSearchParams(window.location.search);
+				let body = document.getElementById('main');
+				const requestOptions = {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ questionID: this.state.idQuestion, text: this.state.reportText })
+				};
+				fetch("https://diary-2212.herokuapp.com/complaint?" + paramsURL, requestOptions)
+					.then(response => response.json())
+					.then(data => data.map(item => {
+						if (item == 'Already Reported') {
+							this.openDefault("Ошибка", "Извините, вы уже пожаловались на данный вопрос!")
+						}
+						else {
+							this.openDefault("Принято", "Спасибо, ваша жалоба находится на рассмотрении!")
+						}
+					})
+					)
+				}
 		}
 	}
 
