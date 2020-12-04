@@ -184,7 +184,8 @@ class App extends React.Component {
 					this.getAllAnswers();
 					this.setState({
 						loadingAnswer: true,
-						loading: true
+						loading: true,
+						loadDataAgain: true
 					})
 				})
 		}

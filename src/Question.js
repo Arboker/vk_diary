@@ -119,7 +119,13 @@ class Question extends React.Component {
                 }
                 fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
                     .then(response => response.json())
-                    .then(data => this.props.changeToMain(this.props.isFromCategory));
+                    .then(data => { 
+                        if (data == "Limit") {
+							this.props.openDefault("Ошибка", "Во избежание флуда, ответьте ещё раз!")
+                        }
+                        else {
+                         this.props.changeToMain(this.props.isFromCategory)
+                     } });
             }
         }
         }
