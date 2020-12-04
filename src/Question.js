@@ -12,6 +12,9 @@ import imageLogo from './img/logo.jpg'
 // import backgroundStory from './img/background_story.jpg'
 import backgroundStory from './img/story.png'
 
+import {isMobile} from 'react-device-detect';
+
+
 class Question extends React.Component {
 
     constructor(props) {
@@ -142,6 +145,37 @@ class Question extends React.Component {
     showHistory = () => {
         const urlQuestion = "https://m.vk.com/app7532498_370516514#q" + this.props.questionId;
         const urlUser = "https://m.vk.com/app7532498_370516514#u" + this.props.questionId;
+        if (isMobile) {
+            bridge.send('VKWebAppShowStoryBox', {
+                "background_type": "image",
+                "url": "https://i.ibb.co/1JvFSnf/new-background.jpg",
+                // "blob": this.state.imageSrc,
+                "stickers": [
+                    {
+                        "sticker_type": "renderable",
+                        "sticker": {
+                            "can_delete": 0,
+                            "content_type": "image",
+                            "blob": this.state.imageSrc,
+                            "clickable_zones": [
+                                {
+                                    "action_type": "link",
+                                    "action": {
+                                        "link": this.state.hrefInsert == "insertanswer" ? urlQuestion : urlUser,
+                                        "tooltip_text_key": "tooltip_open_default"
+                                    },
+                                    "clickable_area": {
+                                        "gravity": "center_bottom"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                ]
+    
+            });
+        }
+        else {
         bridge.send('VKWebAppShowStoryBox', {
             "background_type": "image",
             "url": "https://i.ibb.co/1JvFSnf/new-background.jpg",
@@ -170,7 +204,7 @@ class Question extends React.Component {
             ]
 
         });
-
+    }
         bridge.subscribe(e => e);
 
     }
