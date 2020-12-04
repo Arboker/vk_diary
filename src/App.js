@@ -339,11 +339,11 @@ class App extends React.Component {
 
 	changeAnswer = () => {
 		const paramsURL = new URLSearchParams(window.location.search);
-		if (this.state.newAnswer.length > 999) {
+		if (this.state.newAnswer.replace(/\s/g, '').length > 999) {
 			this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
 		}
 		else {
-		if (this.state.newAnswer != "") {
+		if (this.state.newAnswer.replace(/\s/g, '').length != 0) {
 			const requestOptions = {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -425,11 +425,11 @@ class App extends React.Component {
 	}
 
 	reportQuestion = () => {
-		if (this.state.reportText.length > 999) {
+		if (this.state.reportText.replace(/\s/g, '').length > 999) {
 			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
 		}
 		else {
-			if (this.state.reportText.length != 0) {
+			if (this.state.reportText.replace(/\s/g, '').length != 0) {
 				const paramsURL = new URLSearchParams(window.location.search);
 				let body = document.getElementById('main');
 				const requestOptions = {
