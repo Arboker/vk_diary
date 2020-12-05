@@ -97,19 +97,6 @@ class App extends React.Component {
 	}
 
 	componentDidMount = () => {
-		bridge.send("VKWebAppInit");
-
-		bridge.subscribe(e => {
-			let body = document.getElementById('main');
-			if (e.detail.type === "VKWebAppUpdateConfig") {
-			  if (e.detail.data.scheme) {
-				if (body.getAttribute("scheme") != e.detail.data.scheme) {
-					body.setAttribute('scheme', e.detail.data.scheme);
-				}
-			  }
-			}
-		  })
-
 		const paramsURL = new URLSearchParams(window.location.search);
 
 		fetch('https://diary-2212.herokuapp.com/isnew?' + paramsURL)
