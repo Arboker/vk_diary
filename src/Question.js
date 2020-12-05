@@ -12,7 +12,7 @@ import imageLogo from './img/logo.jpg'
 // import backgroundStory from './img/background_story.jpg'
 import backgroundStory from './img/story.png'
 
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 class Question extends React.Component {
@@ -91,46 +91,47 @@ class Question extends React.Component {
         const questionTitle = !this.props.isFromCategory ? this.props.isNew ? this.state.question.toString() : this.state.title : this.state.title;
 
         if (this.state.answer != undefined) {
-            if (this.state.answer.replace(/\s/g, '').length > 999) {
+            if (this.state.answer.length > 999) {
                 this.props.openDefault("Ошибка", "Максимальный длинна ответа 999 символов!");
             }
             else {
                 if (this.state.answer.replace(/\s/g, '').length != 0) {
-                const paramsURL = new URLSearchParams(window.location.search);
-                const date = new Date();
-                const dateQuestion = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + (date.getDate())).slice(-2);
-                var requestOptions;
-                if (this.state.hrefInsert == "insertanswer") {
-                    requestOptions = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            question: questionTitle,
-                            answer: this.state.answer, date: dateQuestion
-                        })
-                    };
+                    const paramsURL = new URLSearchParams(window.location.search);
+                    const date = new Date();
+                    const dateQuestion = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + (date.getDate())).slice(-2);
+                    var requestOptions;
+                    if (this.state.hrefInsert == "insertanswer") {
+                        requestOptions = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                question: questionTitle,
+                                answer: this.state.answer, date: dateQuestion
+                            })
+                        };
+                    }
+                    else {
+                        requestOptions = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                question: this.state.question.toString(),
+                                answer: this.state.answer, date: dateQuestion, creator: this.props.creator
+                            })
+                        };
+                    }
+                    fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data == "Limit") {
+                                this.props.openDefault("Ошибка", "Во избежание флуда, ответьте ещё раз!")
+                            }
+                            else {
+                                this.props.changeToMain(this.props.isFromCategory)
+                            }
+                        });
                 }
-                else {
-                    requestOptions = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            question: this.state.question.toString(),
-                            answer: this.state.answer, date: dateQuestion, creator: this.props.creator
-                        })
-                    };
-                }
-                fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
-                    .then(response => response.json())
-                    .then(data => { 
-                        if (data == "Limit") {
-							this.props.openDefault("Ошибка", "Во избежание флуда, ответьте ещё раз!")
-                        }
-                        else {
-                         this.props.changeToMain(this.props.isFromCategory)
-                     } });
             }
-        }
         }
     }
 
@@ -172,39 +173,39 @@ class Question extends React.Component {
                         }
                     },
                 ]
-    
+
             });
         }
         else {
-        bridge.send('VKWebAppShowStoryBox', {
-            "background_type": "image",
-            "url": "https://i.ibb.co/1JvFSnf/new-background.jpg",
-            // "blob": this.state.imageSrc,
-            "stickers": [
-                {
-                    "sticker_type": "renderable",
-                    "sticker": {
-                        "can_delete": 0,
-                        "content_type": "image",
-                        "blob": this.state.imageSrc,
-                        "clickable_zones": [
-                            {
-                                "action_type": "link",
-                                "action": {
-                                    "link": this.state.hrefInsert == "insertanswer" ? urlQuestion : urlUser,
-                                    "tooltip_text_key": "tooltip_open_default"
-                                },
-                                "clickable_area": [{
-                                    "gravity": "center_bottom"
-                                }]
-                            }
-                        ]
-                    }
-                },
-            ]
+            bridge.send('VKWebAppShowStoryBox', {
+                "background_type": "image",
+                "url": "https://i.ibb.co/1JvFSnf/new-background.jpg",
+                // "blob": this.state.imageSrc,
+                "stickers": [
+                    {
+                        "sticker_type": "renderable",
+                        "sticker": {
+                            "can_delete": 0,
+                            "content_type": "image",
+                            "blob": this.state.imageSrc,
+                            "clickable_zones": [
+                                {
+                                    "action_type": "link",
+                                    "action": {
+                                        "link": this.state.hrefInsert == "insertanswer" ? urlQuestion : urlUser,
+                                        "tooltip_text_key": "tooltip_open_default"
+                                    },
+                                    "clickable_area": [{
+                                        "gravity": "center_bottom"
+                                    }]
+                                }
+                            ]
+                        }
+                    },
+                ]
 
-        });
-    }
+            });
+        }
         bridge.subscribe(e => e);
 
     }
@@ -395,8 +396,15 @@ class Question extends React.Component {
             this.loadAllAnswers();
         }
         const questionTitle = !this.props.isFromCategory ? this.props.isNew ? this.state.question.toString() : this.state.title : this.state.title;
+        var styles = `html,
+        body {
+          margin: 0;
+        }`;
         return (
             <div style={{ fontFamily: "'Fira Sans', sans-serif" }}>
+                <style>
+                    {styles}
+                </style>
                 <canvas ref="canvas" width="500" height="200" style={{ display: "none" }} />
 
                 {this.state.loaded ? (
@@ -416,7 +424,7 @@ class Question extends React.Component {
                                 }}>{questionTitle}</Text>
 
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1440 320" style={{ width: "100%" }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1440 320" width="100%">
                                 <path fill={this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)"}
                                     style={{ width: "100%" }}
                                     fillOpacity="1" d="M0,96L48,106.7C96,117,192,139,288,144C384,149,480,139,576,133.3C672,128,768,128,864,138.7C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
