@@ -123,6 +123,7 @@ class Question extends React.Component {
                     fetch('https://diary-2212.herokuapp.com/' + this.props.hrefInsert + "?" + paramsURL, requestOptions)
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data)
                             if (data == "Limit") {
                                 this.props.openDefault("Ошибка", "Во избежание флуда, ответьте ещё раз!")
                             }
@@ -144,8 +145,8 @@ class Question extends React.Component {
     }
 
     showHistory = () => {
-        const urlQuestion = "https://m.vk.com/app7532498_370516514#q" + this.props.questionId;
-        const urlUser = "https://m.vk.com/app7532498_370516514#u" + this.props.questionId;
+        const urlQuestion = "https://vk.com/app7532498#q" + this.props.questionId;
+        const urlUser = "https://vk.com/app7532498#u" + this.props.questionId;
         if (isMobile) {
             bridge.send('VKWebAppShowStoryBox', {
                 "background_type": "image",
@@ -326,8 +327,8 @@ class Question extends React.Component {
     }
 
     share = () => {
-        const urlQuestion = "https://m.vk.com/app7532498_370516514#q" + this.props.questionId;
-        const urlUser = "https://m.vk.com/app7532498_370516514#u" + this.props.questionId;
+        const urlQuestion = "https://vk.com/app7532498#q" + this.props.questionId;
+        const urlUser = "https://vk.com/app7532498#u" + this.props.questionId;
         bridge.send("VKWebAppShare", { "link": this.state.hrefInsert == "insertanswer" ? urlQuestion : urlUser });
     }
 
