@@ -70,9 +70,9 @@ class QuesUsers extends React.Component {
 
     }
 
-    changeQuestionScreen = (isNew, nameQuestion, answer, creator, idQuestion) => {
+    changeQuestionScreen = (isNew, nameQuestion, answer, creator, idQuestion, myQuestion) => {
         window.history.pushState({ panel: "questionProfile" }, "questionProfile")
-        this.props.changeQuestion(isNew, nameQuestion, answer, creator, idQuestion);
+        this.props.changeQuestion(isNew, nameQuestion, answer, creator, idQuestion, myQuestion == undefined ? false : true);
     }
 
     userNav = (id, name, avatar) => {
@@ -225,7 +225,7 @@ class QuesUsers extends React.Component {
                                                                     <div>
 
                                                                         <div
-                                                                            onClick={() => this.changeQuestionScreen(false, item.question, item.question, item.creator, item.id)}
+                                                                            onClick={() => this.changeQuestionScreen(false, item.question, item.question, item.creator, item.id, true)}
                                                                             style={{
                                                                                 marginTop: 15, zIndex: 9, boxShadow: this.props.theme == "space_gray" ? '0 0px 10px 0 rgb(74 74 74)' : '0 0px 10px 0 rgba(16, 36, 94, 0.2)',
                                                                                 borderRadius: 6, padding: "15px 10px",

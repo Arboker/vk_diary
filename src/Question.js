@@ -456,8 +456,12 @@ class Question extends React.Component {
                                                     </div>
                                                 ) : (
                                                         <div>
-                                                            <Icon28ReportOutline style={{ float: "right" }}
-                                                                onClick={() => this.props.reportQuestion()} />
+                                                            {this.props.myQuestion ? (
+                                                                <div></div>
+                                                            ) : (
+                                                                    <Icon28ReportOutline style={{ float: "right" }}
+                                                                        onClick={() => this.props.reportQuestion()} />
+                                                                )}
                                                         </div>
                                                     )}
                                             </div>
@@ -523,16 +527,22 @@ class Question extends React.Component {
                                             {this.state.hrefInsert == "insertanswerusers" ? (
                                                 <div>
                                                     {this.state.answers.length == 0 ? (
-                                                        <div style={{ marginBottom: 5, display: "flex" }}>
-                                                            <div style={{
-                                                                backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                                borderRadius: 6, padding: "5px 10px"
-                                                            }}
-                                                                onClick={() => this.props.reportQuestion()}
-                                                            >
-                                                                <Icon24Report style={{ marginRight: 5, color: "white" }} />
-                                                                <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Пожаловаться</Text>
-                                                            </div>
+                                                        <div>
+                                                            {!this.props.myQuestion ? (
+                                                                <div style={{ marginBottom: 5, display: "flex" }}>
+                                                                    <div style={{
+                                                                        backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
+                                                                        borderRadius: 6, padding: "5px 10px"
+                                                                    }}
+                                                                        onClick={() => this.props.reportQuestion()}
+                                                                    >
+                                                                        <Icon24Report style={{ marginRight: 5, color: "white" }} />
+                                                                        <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Пожаловаться</Text>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                    <div></div>
+                                                                )}
                                                         </div>
                                                     ) : (
                                                             <div>

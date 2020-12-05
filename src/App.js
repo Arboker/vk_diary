@@ -79,6 +79,7 @@ class App extends React.Component {
 			isFromCategory: false,
 			adHasShown: false,
 			addHistory: ["panel1"],
+			myQuestion: false,
 		}
 		this.modalBack = () => {
 			this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
@@ -770,13 +771,13 @@ class App extends React.Component {
 								<PanelHeader>Лента</PanelHeader>
 								<QuesUsers
 									theme={this.state.theme}
-									changeQuestion={(isNew, name, answer, creator, questionId) => {
+									changeQuestion={(isNew, name, answer, creator, questionId, myQuestion) => {
 										this.handleConnectionChange()
 										window.history.pushState({ panel: "question" }, "question");
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswerusers',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											creator: creator, idQuestion: questionId
+											creator: creator, idQuestion: questionId, myQuestion: myQuestion
 										})
 									}}
 									changeUser={(id, name, avatar) => {
@@ -832,6 +833,7 @@ class App extends React.Component {
 									creator={this.state.creator}
 									loadedCreator={this.state.loadedCreator}
 									questionId={this.state.idQuestion}
+									myQuestion={this.state.myQuestion}
 									updateAnswer={(answerID, answer) => {
 										this.openQuestion(answerID, answer)
 										this.setState({
