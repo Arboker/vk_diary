@@ -76,7 +76,9 @@ class App extends React.Component {
 			popoutSpinner: null,
 			internet: false,
 			isReadyToGoBack: true,
-			isFromCategory: false
+			isFromCategory: false,
+			adHasShown: false,
+			addHistory: ["panel1"],
 		}
 		this.modalBack = () => {
 			this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
@@ -476,7 +478,22 @@ class App extends React.Component {
 		})
 	}
 
+	changeAdShown = () => {
+		this.setState({
+			adHasShown:true
+		  })
+	}
+
 	render() {
+		// if (!this.state.adHasShown) {
+		// 	if (this.state.addHistory.length === 1) {
+		// 		bridge
+		//   .send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
+		//   .then(data => console.log(JSON.stringify(data.result)))
+		//   .catch(error => console.log(error));
+		//   this.changeAdShown()
+			// }
+			// }
 		const history = this.state.history;
 		const modal = (
 			<ModalRoot
@@ -614,7 +631,7 @@ class App extends React.Component {
 									this.setState({
 										activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswer',
 										answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-										questionId: questionId
+										questionId: questionId, isFromCategory: false
 									})
 								}}
 									theme={this.state.theme}
@@ -660,7 +677,7 @@ class App extends React.Component {
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswer',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											questionId: questionId
+											questionId: questionId, isFromCategory: false
 										})
 									}}
 								/>
