@@ -14,7 +14,7 @@ bridge.subscribe(e => {
   if (e.detail.type === "VKWebAppUpdateConfig") {
     if (e.detail.data.scheme) {
       body.setAttribute('scheme', e.detail.data.scheme);
-
+      
       bridge.send('VKWebAppSetViewSettings', {
         'status_bar_style': e.detail.data.scheme === "bright_light" ? 'dark' : 'light',
         'action_bar_color': e.detail.data.scheme === "bright_light" ? '#ffffff' : '#191919'
