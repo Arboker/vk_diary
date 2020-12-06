@@ -174,6 +174,7 @@ class App extends React.Component {
 	}
 
 	deleteAnswer = id => {
+		this.handleConnectionChange(); 
 		const paramsURL = new URLSearchParams(window.location.search);
 		const requestOptions = {
 			method: 'POST',
@@ -300,6 +301,7 @@ class App extends React.Component {
 	}
 
 	insertAnswer = () => {
+		this.handleConnectionChange(); 
 		if (this.state.questionText != undefined) {
 			if (this.state.questionText.replace(/\s/g, '').length != 0) {
 
@@ -346,6 +348,7 @@ class App extends React.Component {
 	}
 
 	changeAnswer = () => {
+		this.handleConnectionChange(); 
 		const paramsURL = new URLSearchParams(window.location.search);
 		if (this.state.newAnswer.replace(/\s/g, '').length > 999) {
 			this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
@@ -433,6 +436,7 @@ class App extends React.Component {
 	}
 
 	reportQuestion = () => {
+		this.handleConnectionChange(); 
 		if (this.state.reportText.replace(/\s/g, '').length > 999) {
 			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
 		}
