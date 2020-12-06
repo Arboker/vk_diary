@@ -221,6 +221,7 @@ class App extends React.Component {
 	}
 
 	goBack = () => {
+		this.handleConnectionChange();
 		this.setActiveModal(null);
 
 		if (this.state.popout == null) {
@@ -898,7 +899,8 @@ class App extends React.Component {
 
 					</Epic >
 				) : (
-						<div style={{ paddingTop: 50, display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+						<div style={{display: "flex", justifyContent: "center", 
+						flexDirection: "column", alignItems: "center", height: "100vh", alignTtems: "center" }}>
 							<img src={error} alt='Image' style={{ width: 200, height: 200, marginTop: "-30px" }} />
 
 							<Text style={{ fontSize: 20, textAlign: "center", width: "calc(100% / 1.2)", paddingTop: 15, fontFamily: "'Fira Sans', sans-serif" }}>Проверьте ваше интернет соединение!</Text>
