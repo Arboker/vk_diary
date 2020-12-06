@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/vk_diary/static/js/main.c20e7a39.chunk.js",
-    "main.js.map": "/vk_diary/static/js/main.c20e7a39.chunk.js.map",
+    "main.js": "/vk_diary/static/js/main.e6ac6ac5.chunk.js",
+    "main.js.map": "/vk_diary/static/js/main.e6ac6ac5.chunk.js.map",
     "runtime-main.js": "/vk_diary/static/js/runtime-main.92714dab.js",
     "runtime-main.js.map": "/vk_diary/static/js/runtime-main.92714dab.js.map",
     "static/css/2.35bd08af.chunk.css": "/vk_diary/static/css/2.35bd08af.chunk.css",
     "static/js/2.b2c317cd.chunk.js": "/vk_diary/static/js/2.b2c317cd.chunk.js",
     "static/js/2.b2c317cd.chunk.js.map": "/vk_diary/static/js/2.b2c317cd.chunk.js.map",
     "index.html": "/vk_diary/index.html",
-    "precache-manifest.6a8a5cb7bfef77b2850cf7673da8096a.js": "/vk_diary/precache-manifest.6a8a5cb7bfef77b2850cf7673da8096a.js",
+    "precache-manifest.68d5dc9d52d91d43fd5ba460c2bf6a73.js": "/vk_diary/precache-manifest.68d5dc9d52d91d43fd5ba460c2bf6a73.js",
     "service-worker.js": "/vk_diary/service-worker.js",
     "static/css/2.35bd08af.chunk.css.map": "/vk_diary/static/css/2.35bd08af.chunk.css.map",
     "static/js/2.b2c317cd.chunk.js.LICENSE.txt": "/vk_diary/static/js/2.b2c317cd.chunk.js.LICENSE.txt",
@@ -28,6 +28,6 @@
     "static/js/runtime-main.92714dab.js",
     "static/css/2.35bd08af.chunk.css",
     "static/js/2.b2c317cd.chunk.js",
-    "static/js/main.c20e7a39.chunk.js"
+    "static/js/main.e6ac6ac5.chunk.js"
   ]
 }
