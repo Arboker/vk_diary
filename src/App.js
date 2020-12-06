@@ -103,21 +103,21 @@ class App extends React.Component {
 		const paramsURL = new URLSearchParams(window.location.search);
 
 		fetch('https://diary-2212.herokuapp.com/isnew?' + paramsURL)
-		.then(response => response.json())
-		.then(data => { 
-			if (data.toString() == "true") {
-				fetch('https://diary-2212.herokuapp.com/insertuser?'+paramsURL)
-                .then(response => response.json())
-                .then(data => {
-                });
-				bridge.send("VKWebAppStorageSet", {"key": "userExists", "value": "true"});
-				this.setState({ loading: false });
-			}
-			else {
+			.then(response => response.json())
+			.then(data => {
+				if (data.toString() == "true") {
+					fetch('https://diary-2212.herokuapp.com/insertuser?' + paramsURL)
+						.then(response => response.json())
+						.then(data => {
+						});
+					bridge.send("VKWebAppStorageSet", { "key": "userExists", "value": "true" });
+					this.setState({ loading: false });
+				}
+				else {
 
-			}
-			 });
-		
+				}
+			});
+
 		this.handleConnectionChange();
 
 		let body = document.getElementById('main');
@@ -174,7 +174,7 @@ class App extends React.Component {
 	}
 
 	deleteAnswer = id => {
-		this.handleConnectionChange(); 
+		this.handleConnectionChange();
 		const paramsURL = new URLSearchParams(window.location.search);
 		const requestOptions = {
 			method: 'POST',
@@ -250,11 +250,17 @@ class App extends React.Component {
 		this.handleConnectionChange()
 		const tabsName = ['panel1', 'CreateQuestion', 'QuesUsers'];
 		const tabName = e.currentTarget.dataset.story;
-		window.history.pushState({ panel: tabName }, tabName);
+		const history = this.state.history;
 
-		var a = this.state.history.filter(item => tabsName.includes(item))
+		var a = history.filter(item => tabsName.includes(item));
 		a = a.concat(tabName)
 
+		if (a[a.length - 2] == tabName) {
+			a.pop();
+		}
+
+		console.log(a)
+		window.history.pushState({ panel: tabName }, tabName);
 		this.setState({
 			activeStory: tabName, activePanel: tabName,
 			canLoadQuestion: true, history: a
@@ -301,7 +307,7 @@ class App extends React.Component {
 	}
 
 	insertAnswer = () => {
-		this.handleConnectionChange(); 
+		this.handleConnectionChange();
 		if (this.state.questionText != undefined) {
 			if (this.state.questionText.replace(/\s/g, '').length != 0) {
 
@@ -341,50 +347,50 @@ class App extends React.Component {
 						})
 					})
 			}
-		 if (this.state.questionText.replace(/\s/g, '').length > 999) {
+			if (this.state.questionText.replace(/\s/g, '').length > 999) {
 				this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
 			}
 		}
 	}
 
 	changeAnswer = () => {
-		this.handleConnectionChange(); 
+		this.handleConnectionChange();
 		const paramsURL = new URLSearchParams(window.location.search);
 		if (this.state.newAnswer.replace(/\s/g, '').length > 999) {
 			this.openDefault("Ошибка", "Максимальная длина ответа 999 символов!");
 		}
 		else {
-		if (this.state.newAnswer.replace(/\s/g, '').length != 0) {
-			const requestOptions = {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					answerID: this.state.answerID, newAnswer: this.state.newAnswer
-				})
-			};
-			if (this.state.hrefInsert == "insertanswer") {
-				fetch('https://diary-2212.herokuapp.com/updateanswer?' + paramsURL, requestOptions)
-					.then(response => response.json())
-					.then(data => {
-						this.getAllAnswers();
-						this.setState({
-							loadingAnswer: true,
-							newAnswer: "",
-							loading: true
-						})
+			if (this.state.newAnswer.replace(/\s/g, '').length != 0) {
+				const requestOptions = {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						answerID: this.state.answerID, newAnswer: this.state.newAnswer
 					})
-			}
-			else {
-				fetch('https://diary-2212.herokuapp.com/updateanswerusers?' + paramsURL, requestOptions)
-					.then(response => response.json())
-					.then(data => {
-						this.setState({
-							loadingAnswer: true
+				};
+				if (this.state.hrefInsert == "insertanswer") {
+					fetch('https://diary-2212.herokuapp.com/updateanswer?' + paramsURL, requestOptions)
+						.then(response => response.json())
+						.then(data => {
+							this.getAllAnswers();
+							this.setState({
+								loadingAnswer: true,
+								newAnswer: "",
+								loading: true
+							})
 						})
-					})
+				}
+				else {
+					fetch('https://diary-2212.herokuapp.com/updateanswerusers?' + paramsURL, requestOptions)
+						.then(response => response.json())
+						.then(data => {
+							this.setState({
+								loadingAnswer: true
+							})
+						})
+				}
 			}
 		}
-	}
 	}
 
 	checkForHash = () => {
@@ -436,7 +442,7 @@ class App extends React.Component {
 	}
 
 	reportQuestion = () => {
-		this.handleConnectionChange(); 
+		this.handleConnectionChange();
 		if (this.state.reportText.replace(/\s/g, '').length > 999) {
 			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
 		}
@@ -460,7 +466,7 @@ class App extends React.Component {
 						}
 					})
 					)
-				}
+			}
 		}
 	}
 
@@ -489,8 +495,8 @@ class App extends React.Component {
 
 	changeAdShown = () => {
 		this.setState({
-			adHasShown:true
-		  })
+			adHasShown: true
+		})
 	}
 
 	render() {
@@ -501,8 +507,8 @@ class App extends React.Component {
 		//   .then(data => console.log(JSON.stringify(data.result)))
 		//   .catch(error => console.log(error));
 		//   this.changeAdShown()
-			// }
-			// }
+		// }
+		// }
 		const history = this.state.history;
 		const modal = (
 			<ModalRoot
@@ -750,22 +756,23 @@ class App extends React.Component {
 											history: [...this.state.history, "modal_question"]
 										})
 									}}
-									openDefault={(title, error) => this.openDefault(title, error) }
+									openDefault={(title, error) => this.openDefault(title, error)}
 									isNew={this.checkForIsNew()}
-									changeToMain={(state) => { 
+									changeToMain={(state) => {
 										this.handleConnectionChange();
 										const history = this.state.history;
 										if (state) {
 											history.pop();
 											history.pop();
 											history.pop();
-											this.setState({activePanel: history[history.length - 1], activeStory: history[history.length - 1], loading: true, isFromCategory: false });
+											this.setState({ activePanel: history[history.length - 1], activeStory: history[history.length - 1], loading: true, isFromCategory: false });
 										}
 										else {
 											history.pop();
-											this.setState({activePanel: history[history.length - 1], activeStory: history[history.length - 1], loading: true, isFromCategory: false });
+											this.setState({ activePanel: history[history.length - 1], activeStory: history[history.length - 1], loading: true, isFromCategory: false });
 										}
-										 this.getAllAnswers(); }}
+										this.getAllAnswers();
+									}}
 								/>
 							</Panel>
 
@@ -867,8 +874,10 @@ class App extends React.Component {
 											history: [...this.state.history, "modal_question"]
 										})
 									}}
-									changeToMain={() => { this.handleConnectionChange(); 
-									this.setState({ activePanel: "panel1" }); this.getAllAnswers(); window.location.reload() }} />
+									changeToMain={() => {
+										this.handleConnectionChange();
+										this.setState({ activePanel: "panel1" }); this.getAllAnswers(); window.location.reload()
+									}} />
 							</Panel>
 
 						</View>
@@ -903,14 +912,18 @@ class App extends React.Component {
 
 					</Epic >
 				) : (
-						<div style={{display: "flex", justifyContent: "center", 
-						flexDirection: "column", alignItems: "center", height: "100vh", alignTtems: "center" }}>
+						<div style={{
+							display: "flex", justifyContent: "center",
+							flexDirection: "column", alignItems: "center", height: "100vh", alignTtems: "center"
+						}}>
 							<img src={error} alt='Image' style={{ width: 200, height: 200, marginTop: "-30px" }} />
 
 							<Text style={{ fontSize: 20, textAlign: "center", width: "calc(100% / 1.2)", paddingTop: 15, fontFamily: "'Fira Sans', sans-serif" }}>Проверьте ваше интернет соединение!</Text>
-							<Button size="xl" style={{ backgroundColor: this.state.theme == "space_gray" ? "#2b7ede" : "rgb(70 145 230)", 
-							color: "white", marginTop: 30, marginBottom: 20, 
-							width: "80%", cursor: "pointer", fontFamily: "'Fira Sans', sans-serif"  }} onClick={() => this.handleConnectionChange()}>Повторить попытку</Button>
+							<Button size="xl" style={{
+								backgroundColor: this.state.theme == "space_gray" ? "#2b7ede" : "rgb(70 145 230)",
+								color: "white", marginTop: 30, marginBottom: 20,
+								width: "80%", cursor: "pointer", fontFamily: "'Fira Sans', sans-serif"
+							}} onClick={() => this.handleConnectionChange()}>Повторить попытку</Button>
 						</div>
 					)}
 			</div>
