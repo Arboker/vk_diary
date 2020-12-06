@@ -901,7 +901,7 @@ class App extends React.Component {
 							popout={this.state.popout}
 							onSwipeBack={this.goBack}>
 							<Panel id="CreateQuestion">
-								<PanelHeader>Редактирование</PanelHeader>
+								<PanelHeader>Создание</PanelHeader>
 								<CreateQuestion
 									addQuestionSpinner={() => this.addQuestionSpinner()}
 									removeSpinner={() => this.removeSpinner()}
