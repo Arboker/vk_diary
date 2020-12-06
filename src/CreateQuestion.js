@@ -30,6 +30,7 @@ class CreateQuestion extends React.Component {
           ];
           this.state.title.replace(new RegExp(ranges.join('|'), 'g'), '');
           this.state.title.replace(/[^\w\s]/gi, '');
+          console.log(this.state.title.replace(/\s/g, '').replace(new RegExp(ranges.join('|'), 'g'), '').replace(/[^\w\s]/gi, '').length)
         if (this.state.title.replace(/\s/g, '').replace(new RegExp(ranges.join('|'), 'g'), '').replace(/[^\w\s]/gi, '').length != 0) {
             var error = "";
             if (this.state.title.length > 150 && this.state.answer.length > 999) {
