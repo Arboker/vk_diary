@@ -12,9 +12,8 @@ import imageLogo from './img/logo.jpg'
 // import backgroundStory from './img/background_story.jpg'
 import backgroundStory from './img/story.png'
 
-import { isMobile } from 'react-device-detect'
-import WaveLight from './img/waveLight.svg'
-import WaveDark from './img/waveDark.svg'
+import { isMobile } from 'react-device-detect';
+
 
 class Question extends React.Component {
 
@@ -431,11 +430,11 @@ class Question extends React.Component {
                                 position: "relative",
                                 width: "100%"
                             }}>
-                                {this.props.theme == "space_gray" ? (
-                                    <img src={WaveDark} alt="" />
-                                ) : (
-                                    <img src={WaveLight} alt="" />
-                                )}
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1440 320" width="100%">
+                                    <path fill={this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)"}
+                                        style={{ width: "100%" }}
+                                        fillOpacity="1" d="M0,96L48,106.7C96,117,192,139,288,144C384,149,480,139,576,133.3C672,128,768,128,864,138.7C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+                                </svg>
                             </div>
                         </div>
 
