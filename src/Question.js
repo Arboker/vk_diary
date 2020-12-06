@@ -434,7 +434,7 @@ class Question extends React.Component {
                                 position: "relative",
                                 width: windowWidth
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox={viewBoxSvg} width={windowWidth}>
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox={viewBoxSvg} width={windowWidth} style={{marginTop: "-3px"}}>
                                     <path fill={this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)"}
                                         style={{ width: windowWidth }}
                                         fillOpacity="1"
