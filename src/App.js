@@ -1,7 +1,8 @@
 import React from 'react';
 import {
 	Tabbar, TabbarItem, Panel, PanelHeader, View, PanelHeaderBack, Epic,
-	ModalCard, ModalRoot, Textarea, ActionSheet, ActionSheetItem, ScreenSpinner, Alert, Text
+	ModalCard, ModalRoot, Textarea, ActionSheet, ActionSheetItem, ScreenSpinner, Alert, Text,
+	Button
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import error from './img/error.png'
@@ -243,6 +244,7 @@ class App extends React.Component {
 	}
 
 	onStoryChange = e => {
+		this.handleConnectionChange()
 		const tabsName = ['panel1', 'CreateQuestion', 'QuesUsers'];
 		const tabName = e.currentTarget.dataset.story;
 		window.history.pushState({ panel: tabName }, tabName);
@@ -898,6 +900,9 @@ class App extends React.Component {
 							<img src={error} alt='Image' style={{ width: 200, height: 200, marginTop: "-30px" }} />
 
 							<Text style={{ fontSize: 20, textAlign: "center", width: "calc(100% / 1.2)", paddingTop: 15, fontFamily: "'Fira Sans', sans-serif" }}>Проверьте ваше интернет соединение!</Text>
+							<Button size="xl" style={{ backgroundColor: this.state.theme == "space_gray" ? "#2b7ede" : "rgb(70 145 230)", 
+							color: "white", marginTop: 30, marginBottom: 20, 
+							width: "80%", cursor: "pointer", fontFamily: "'Fira Sans', sans-serif"  }} onClick={() => this.handleConnectionChange()}>Повторить попытку</Button>
 						</div>
 					)}
 			</div>
