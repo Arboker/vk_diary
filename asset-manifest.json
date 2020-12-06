@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/vk_diary/static/js/main.3d4b90f4.chunk.js",
-    "main.js.map": "/vk_diary/static/js/main.3d4b90f4.chunk.js.map",
+    "main.js": "/vk_diary/static/js/main.7c862c59.chunk.js",
+    "main.js.map": "/vk_diary/static/js/main.7c862c59.chunk.js.map",
     "runtime-main.js": "/vk_diary/static/js/runtime-main.92714dab.js",
     "runtime-main.js.map": "/vk_diary/static/js/runtime-main.92714dab.js.map",
     "static/css/2.35bd08af.chunk.css": "/vk_diary/static/css/2.35bd08af.chunk.css",
-    "static/js/2.d724f662.chunk.js": "/vk_diary/static/js/2.d724f662.chunk.js",
-    "static/js/2.d724f662.chunk.js.map": "/vk_diary/static/js/2.d724f662.chunk.js.map",
+    "static/js/2.b2c317cd.chunk.js": "/vk_diary/static/js/2.b2c317cd.chunk.js",
+    "static/js/2.b2c317cd.chunk.js.map": "/vk_diary/static/js/2.b2c317cd.chunk.js.map",
     "index.html": "/vk_diary/index.html",
-    "precache-manifest.22d21119a05967cb3d54974f679f8303.js": "/vk_diary/precache-manifest.22d21119a05967cb3d54974f679f8303.js",
+    "precache-manifest.d79831bb0e870d8a1204955d88d8f869.js": "/vk_diary/precache-manifest.d79831bb0e870d8a1204955d88d8f869.js",
     "service-worker.js": "/vk_diary/service-worker.js",
     "static/css/2.35bd08af.chunk.css.map": "/vk_diary/static/css/2.35bd08af.chunk.css.map",
-    "static/js/2.d724f662.chunk.js.LICENSE.txt": "/vk_diary/static/js/2.d724f662.chunk.js.LICENSE.txt",
+    "static/js/2.b2c317cd.chunk.js.LICENSE.txt": "/vk_diary/static/js/2.b2c317cd.chunk.js.LICENSE.txt",
     "static/media/camochustvie.jpeg": "/vk_diary/static/media/camochustvie.21655b37.jpeg",
     "static/media/category.png": "/vk_diary/static/media/category.9777cfde.png",
     "static/media/error.png": "/vk_diary/static/media/error.1440130b.png",
@@ -22,14 +22,12 @@
     "static/media/samoanaliz.jpeg": "/vk_diary/static/media/samoanaliz.d8c007a0.jpeg",
     "static/media/screenTwo.jpg": "/vk_diary/static/media/screenTwo.b8fb35df.jpg",
     "static/media/screen_one.jpg": "/vk_diary/static/media/screen_one.39bd2756.jpg",
-    "static/media/story.png": "/vk_diary/static/media/story.f56c0e88.png",
-    "static/media/waveDark.svg": "/vk_diary/static/media/waveDark.e8ced8c6.svg",
-    "static/media/waveLight.svg": "/vk_diary/static/media/waveLight.4aa8c12b.svg"
+    "static/media/story.png": "/vk_diary/static/media/story.f56c0e88.png"
   },
   "entrypoints": [
     "static/js/runtime-main.92714dab.js",
     "static/css/2.35bd08af.chunk.css",
-    "static/js/2.d724f662.chunk.js",
-    "static/js/main.3d4b90f4.chunk.js"
+    "static/js/2.b2c317cd.chunk.js",
+    "static/js/main.7c862c59.chunk.js"
   ]
 }
