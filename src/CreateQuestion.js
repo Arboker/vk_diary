@@ -32,8 +32,6 @@ class CreateQuestion extends React.Component {
           var textTitle = this.state.title;
           textTitle = textTitle.replace(/\s/g, '');
           textTitle = textTitle.replace(new RegExp(ranges.join('|'), 'g'), '');
-          textTitle = textTitle.replace(/[^\w\s]/gi, '');
-
 
         if (textTitle.length != 0) {
             var error = "";
