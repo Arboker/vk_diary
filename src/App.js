@@ -751,6 +751,7 @@ class App extends React.Component {
 									creator={this.state.creator}
 									loadedCreator={this.state.loadedCreator}
 									questionId={this.state.questionId}
+									handleConnectionChange={() => this.handleConnectionChange()}
 									updateAnswer={(answerID, answer) => {
 										this.openQuestion(answerID, answer)
 										this.setState({

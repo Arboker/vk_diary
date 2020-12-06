@@ -88,6 +88,7 @@ class Question extends React.Component {
     }
 
     insertAnswer = () => {
+        this.props.handleConnectionChange();
         const questionTitle = !this.props.isFromCategory ? this.props.isNew ? this.state.question.toString() : this.state.title : this.state.title;
 
         if (this.state.answer != undefined) {
