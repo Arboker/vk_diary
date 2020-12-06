@@ -75,9 +75,9 @@ class QuesUsers extends React.Component {
         this.props.changeQuestion(isNew, nameQuestion, answer, creator, idQuestion, myQuestion == undefined ? false : true);
     }
 
-    userNav = (id, name, avatar) => {
+    userNav = (id, name, avatar, sex) => {
         window.history.pushState({ panel: "questionProfile" }, "questionProfile")
-        this.props.changeUser(id, name, avatar);
+        this.props.changeUser(id, name, avatar, sex);
     }
 
     chnageTab = (tab) => {
@@ -116,7 +116,7 @@ class QuesUsers extends React.Component {
                                 {this.state.allUsers.map(user => {
                                     return (
                                         <div style={{ ...itemStyle }}
-                                            onClick={() => this.userNav(user.username, user.name, user.avatar)}
+                                            onClick={() => this.userNav(user.username, user.name, user.avatar, user.sex)}
                                         >
                                             <Avatar src={user.avatar} size={64} style={{ marginBottom: 8 }} />
                                             <Text style={{ marginTop: 2, textAlign: "center" }}>{user.name}</Text>

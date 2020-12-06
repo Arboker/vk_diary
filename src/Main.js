@@ -107,7 +107,7 @@ class Main extends React.Component {
                         <Spinner size="medium" style={{ marginTop: 20 }} />
                     </div>
                 ) : (
-                        <div style={{ marginBottom: 60 }}>
+                        <div style={{ marginBottom: 10 }}>
                             {questionsObject != "" ? (
                                 <div>
                                     {questionsObject.map(item => {

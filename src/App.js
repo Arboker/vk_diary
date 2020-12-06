@@ -59,6 +59,7 @@ class App extends React.Component {
 			userId: "",
 			userName: "",
 			userPicture: "",
+			userSex: "",
 			hrefInsert: "",
 			theme: "",
 			loadingAnswer: true,
@@ -782,12 +783,12 @@ class App extends React.Component {
 											creator: creator, idQuestion: questionId, myQuestion: myQuestion
 										})
 									}}
-									changeUser={(id, name, avatar) => {
+									changeUser={(id, name, avatar, sex) => {
 										this.handleConnectionChange()
 										window.history.pushState({ panel: "User" }, "User");
 										this.setState({
 											activePanel: "User", userId: id, userName: name, userPicture: avatar,
-											history: [...this.state.history, "User"]
+											userSex: sex, history: [...this.state.history, "User"]
 										})
 									}}
 									name={this.state.name}
@@ -806,6 +807,7 @@ class App extends React.Component {
 									userId={this.state.userId}
 									userName={this.state.userName}
 									userPicture={this.state.userPicture}
+									userSex={this.state.userSex}
 									changeQuestion={(isNew, name, answer, creator, questionId) => {
 										this.handleConnectionChange()
 										window.history.pushState({ panel: "question" }, "question");

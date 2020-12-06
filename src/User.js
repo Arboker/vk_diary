@@ -11,6 +11,7 @@ class Firstly extends React.Component {
             id: this.props.userId,
             name: this.props.userName,
             avatar: this.props.userPicture,
+            sex: this.props.userSex,
             answered: [],
             loadingQuestion: true
         }
@@ -64,7 +65,7 @@ class Firstly extends React.Component {
                         <Avatar src={this.state.avatar} size={104} style={{ marginBottom: 8 }} />
                         <div style={{ display: "flex", flexDirection: "column", marginLeft: 10, alignSelf: "center" }}>
                             <Text style={{ fontSize: 17, fontWeight: "bold", marginBottom: 2, color: "white" }}>{this.state.name}</Text>
-                            <Text style={{ marginBottom: 10, color: "#f5f5f5" }}>Создал {this.state.answered.length} {titleQuestion}</Text>
+                            <Text style={{ marginBottom: 10, color: "#f5f5f5" }}>Создал{this.state.sex==1?"а":""} {this.state.answered.length} {titleQuestion}</Text>
                             <Link href={userHref} target="_blank"> <Button style={{cursor: "pointer"}} mode="overlay_outline">Перейти</Button></Link>
                         </div>
                     </div>
