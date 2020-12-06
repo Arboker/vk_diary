@@ -32,7 +32,9 @@ class CreateQuestion extends React.Component {
           var textTitle = this.state.title;
           textTitle = textTitle.replace(/\s/g, '');
           textTitle = textTitle.replace(new RegExp(ranges.join('|'), 'g'), '');
+          textTitle = textTitle.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g, '');
 
+          console.log(textTitle)
         if (textTitle.length != 0) {
             var error = "";
             if (this.state.title.length > 150 && this.state.answer.length > 999) {
