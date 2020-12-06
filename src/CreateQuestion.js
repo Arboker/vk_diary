@@ -30,7 +30,7 @@ class CreateQuestion extends React.Component {
           ];
           this.state.title.replace(new RegExp(ranges.join('|'), 'g'), '');
           this.state.title.replace(/[^\w\s]/gi, '');
-        if (this.state.title.replace(/\s/g, '').length != 0) {
+        if (this.state.title.replace(/\s/g, '').replace(new RegExp(ranges.join('|'), 'g'), '').replace(/[^\w\s]/gi, '').length != 0) {
             var error = "";
             if (this.state.title.length > 150 && this.state.answer.length > 999) {
                 error = "Вопрос и ответ слишком длинные. Максимум 150 и 999 символов!"

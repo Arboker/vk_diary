@@ -145,6 +145,7 @@ class App extends React.Component {
 	}
 
 	openQuestion(answerID) {
+		this.handleConnectionChange();
 		this.setState({
 			popout:
 				<ActionSheet onClose={() => this.setState({ popout: null })}>
@@ -199,8 +200,11 @@ class App extends React.Component {
 			fetch('https://diary-2212.herokuapp.com/deleteanswerusers?' + paramsURL, requestOptions)
 				.then(response => response.json())
 				.then(data => {
+					this.getAllAnswers();
 					this.setState({
-						loadingAnswer: true
+						loadingAnswer: true,
+						loading: true,
+						loadDataAgain: true
 					})
 				})
 		}
@@ -208,6 +212,7 @@ class App extends React.Component {
 	}
 
 	getAllAnswers = () => {
+		this.handleConnectionChange()
 		const paramsURL = new URLSearchParams(window.location.search);
 		fetch('https://diary-2212.herokuapp.com/answered?' + paramsURL)
 			.then(response => response.json())
@@ -259,7 +264,6 @@ class App extends React.Component {
 			a.pop();
 		}
 
-		console.log(a)
 		window.history.pushState({ panel: tabName }, tabName);
 		this.setState({
 			activeStory: tabName, activePanel: tabName,
@@ -394,7 +398,6 @@ class App extends React.Component {
 	}
 
 	checkForHash = () => {
-
 		const paramsURL = new URLSearchParams(window.location.search);
 		const hash = window.location.hash.replace('#', '')
 		const first = hash.charAt(0)
@@ -443,6 +446,7 @@ class App extends React.Component {
 
 	reportQuestion = () => {
 		this.handleConnectionChange();
+		if (this.checkConnection()) {
 		if (this.state.reportText.replace(/\s/g, '').length > 999) {
 			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
 		}
@@ -469,6 +473,7 @@ class App extends React.Component {
 			}
 		}
 	}
+	}
 
 	openDefault(title, text) {
 		this.setState({
@@ -488,9 +493,16 @@ class App extends React.Component {
 	}
 
 	handleConnectionChange = () => {
+		// if (this.state.hrefInsert == "insertanswerusers") {
+
+		// }
 		this.setState({
 			internet: window.navigator.onLine
 		})
+	}
+
+	checkConnection = () => {
+		return window.navigator.onLine;
 	}
 
 	changeAdShown = () => {
