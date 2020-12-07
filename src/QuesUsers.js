@@ -111,8 +111,8 @@ class QuesUsers extends React.Component {
 
                 <Group style={{ paddingBottom: 8 }}>
                     {this.state.loaded ? (
-                        <HorizontalScroll style={{padding: "0 10px"}}>
-                            <div style={{ display: 'flex' }}>
+                        <HorizontalScroll>
+                            <div style={{ display: 'flex', padding: "0 10px" }}>
                                 {this.state.allUsers.map(user => {
                                     return (
                                         <div style={{ ...itemStyle }}
