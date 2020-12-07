@@ -514,7 +514,7 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.adHasShown) {
-			if (this.state.adHistory.length === 3) {
+			if (this.state.adHistory.length === 5) {
 				bridge
 					.send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
 					.then(data => console.log(JSON.stringify(data.result)))
