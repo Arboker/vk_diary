@@ -513,16 +513,15 @@ class App extends React.Component {
 	}
 
 	render() {
-		// if (!this.state.adHasShown) {
-		// 	if (this.state.adHistory.length === 3) {
-		// 		bridge
-		// 			.send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
-		// 			.then(data => console.log(JSON.stringify(data.result)))
-		// 			.catch(error => console.log(error));
-		// 		this.changeAdShown()
-		// 	}
-		// }
-		// console.log(this.state.adHistory)
+		if (!this.state.adHasShown) {
+			if (this.state.adHistory.length === 3) {
+				bridge
+					.send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
+					.then(data => console.log(JSON.stringify(data.result)))
+					.catch(error => console.log(error));
+				this.changeAdShown()
+			}
+		}
 		const history = this.state.history;
 		const modal = (
 			<ModalRoot
