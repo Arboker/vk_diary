@@ -433,9 +433,9 @@ class App extends React.Component {
 				.then(data => data.map(item => {
 					this.setState({
 						loadedCreator: true,
-						activePanel: "question", isNewNow: false, questionTitle: item.question, hrefInsert: 'insertanswerusers',
+						activePanel: "question", activeStory: "QuesUsers", isNewNow: false, questionTitle: item.question, hrefInsert: 'insertanswerusers',
 						creator: item.creator, questionId: question_id,
-						answerTitle: "", history: [...this.state.history, "question"], loadingAnswer: true
+						answerTitle: "", history: [...this.state.history, "QuesUsers", "question"], loadingAnswer: true
 					})
 				}
 				)
