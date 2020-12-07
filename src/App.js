@@ -80,7 +80,7 @@ class App extends React.Component {
 			isReadyToGoBack: true,
 			isFromCategory: false,
 			adHasShown: false,
-			addHistory: ["panel1"],
+			adHistory: ["panel1"],
 			myQuestion: false,
 		}
 		this.modalBack = () => {
@@ -267,7 +267,7 @@ class App extends React.Component {
 		window.history.pushState({ panel: tabName }, tabName);
 		this.setState({
 			activeStory: tabName, activePanel: tabName,
-			canLoadQuestion: true, history: a
+			canLoadQuestion: true, history: a, adHistory: [...this.state.adHistory, "new"]
 		})
 	}
 
@@ -447,32 +447,32 @@ class App extends React.Component {
 	reportQuestion = () => {
 		this.handleConnectionChange();
 		if (this.checkConnection()) {
-		if (this.state.reportText.replace(/\s/g, '').length > 999) {
-			this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
-		}
-		else {
-			if (this.state.reportText.replace(/\s/g, '').length != 0) {
-				const paramsURL = new URLSearchParams(window.location.search);
-				let body = document.getElementById('main');
-				const requestOptions = {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ questionID: this.state.idQuestion, text: this.state.reportText })
-				};
-				fetch("https://diary-2212.herokuapp.com/complaint?" + paramsURL, requestOptions)
-					.then(response => response.json())
-					.then(data => data.map(item => {
-						if (item == 'Already Reported') {
-							this.openDefault("Ошибка", "Извините, вы уже пожаловались на данный вопрос!")
-						}
-						else {
-							this.openDefault("Принято", "Спасибо, ваша жалоба находится на рассмотрении!")
-						}
-					})
-					)
+			if (this.state.reportText.replace(/\s/g, '').length > 999) {
+				this.openDefault("Принято", "Жалоба слишком длинная! Максимум 999 символов");
+			}
+			else {
+				if (this.state.reportText.replace(/\s/g, '').length != 0) {
+					const paramsURL = new URLSearchParams(window.location.search);
+					let body = document.getElementById('main');
+					const requestOptions = {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ questionID: this.state.idQuestion, text: this.state.reportText })
+					};
+					fetch("https://diary-2212.herokuapp.com/complaint?" + paramsURL, requestOptions)
+						.then(response => response.json())
+						.then(data => data.map(item => {
+							if (item == 'Already Reported') {
+								this.openDefault("Ошибка", "Извините, вы уже пожаловались на данный вопрос!")
+							}
+							else {
+								this.openDefault("Принято", "Спасибо, ваша жалоба находится на рассмотрении!")
+							}
+						})
+						)
+				}
 			}
 		}
-	}
 	}
 
 	openDefault(title, text) {
@@ -513,14 +513,15 @@ class App extends React.Component {
 
 	render() {
 		// if (!this.state.adHasShown) {
-		// 	if (this.state.addHistory.length === 1) {
+		// 	if (this.state.adHistory.length === 3) {
 		// 		bridge
-		//   .send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
-		//   .then(data => console.log(JSON.stringify(data.result)))
-		//   .catch(error => console.log(error));
-		//   this.changeAdShown()
+		// 			.send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
+		// 			.then(data => console.log(JSON.stringify(data.result)))
+		// 			.catch(error => console.log(error));
+		// 		this.changeAdShown()
+		// 	}
 		// }
-		// }
+		// console.log(this.state.adHistory)
 		const history = this.state.history;
 		const modal = (
 			<ModalRoot
@@ -629,7 +630,7 @@ class App extends React.Component {
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'panel1'}
 								data-story="panel1"
-							><Icon28HomeOutline width={24} height={24} /></TabbarItem>
+							><Icon28HomeOutline width={24} height={24} style={{cursor: "pointer"}} /></TabbarItem>
 							<TabbarItem
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'CreateQuestion'}
@@ -639,7 +640,7 @@ class App extends React.Component {
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'QuesUsers'}
 								data-story="QuesUsers"
-							><Icon28NewsfeedOutline width={24} height={24} /></TabbarItem>
+							><Icon28NewsfeedOutline width={24} height={24} style={{cursor: "pointer"}} /></TabbarItem>
 						</Tabbar>
 					}>
 
@@ -658,7 +659,7 @@ class App extends React.Component {
 									this.setState({
 										activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswer',
 										answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-										questionId: questionId, isFromCategory: false
+										questionId: questionId, isFromCategory: false, adHistory: [...this.state.adHistory, "new"]
 									})
 								}}
 									theme={this.state.theme}
@@ -667,7 +668,9 @@ class App extends React.Component {
 									id={this.state.id}
 									canLoadQuestion={this.state.canLoadQuestion}
 									changeLoading={() => this.setState({ canLoadQuestion: false })}
-									changeScreenApp={(screen) => this.setState({ activePanel: screen, history: [...this.state.history, screen] })}
+									changeScreenApp={(screen) => 
+										this.setState({ activePanel: screen, history: [...this.state.history, screen], adHistory: [...this.state.adHistory, "new"] }
+											)}
 								/>
 							</Panel>
 
@@ -683,7 +686,7 @@ class App extends React.Component {
 										window.history.pushState({ panel: "questionsCategory" }, "questionsCategory");
 										this.setState({
 											activePanel: "questionsCategory", category: category,
-											history: [...this.state.history, "questionsCategory"]
+											history: [...this.state.history, "questionsCategory"], adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 								/>
@@ -704,7 +707,7 @@ class App extends React.Component {
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswer',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											questionId: questionId, isFromCategory: false
+											questionId: questionId, isFromCategory: false, adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 								/>
@@ -727,7 +730,7 @@ class App extends React.Component {
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswer',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
 											questionId: questionId,
-											isFromCategory: true
+											isFromCategory: true, adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 								/>
@@ -805,7 +808,7 @@ class App extends React.Component {
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswerusers',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											creator: creator, idQuestion: questionId, myQuestion: myQuestion
+											creator: creator, idQuestion: questionId, myQuestion: myQuestion, adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 									changeUser={(id, name, avatar, sex) => {
@@ -813,7 +816,7 @@ class App extends React.Component {
 										window.history.pushState({ panel: "User" }, "User");
 										this.setState({
 											activePanel: "User", userId: id, userName: name, userPicture: avatar,
-											userSex: sex, history: [...this.state.history, "User"]
+											userSex: sex, history: [...this.state.history, "User"], adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 									name={this.state.name}
@@ -839,7 +842,7 @@ class App extends React.Component {
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswerusers',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											creator: creator, idQuestion: questionId
+											creator: creator, idQuestion: questionId,adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 								/>

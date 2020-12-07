@@ -518,7 +518,7 @@ class Question extends React.Component {
                                             <div style={{ display: "flex", marginBottom: 5, marginRight: 5 }}>
                                                 <div style={{
                                                     backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                    borderRadius: 6, padding: "5px 10px"
+                                                    borderRadius: 6, padding: "5px 10px", cursor: "pointer",
                                                 }}
                                                     onClick={() => this.share()}>
                                                     <Icon24Share style={{ marginRight: 5, color: "white" }} />
@@ -528,7 +528,7 @@ class Question extends React.Component {
                                             <div style={{ display: "flex", marginBottom: 5 }}>
                                                 <div style={{
                                                     backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                    borderRadius: 6, padding: "5px 10px"
+                                                    borderRadius: 6, padding: "5px 10px", cursor: "pointer",
                                                 }}
                                                     onClick={() => this.showHistory()}>
                                                     <Icon24Story style={{ marginRight: 5, color: "white" }} />
@@ -543,7 +543,7 @@ class Question extends React.Component {
                                                                 <div style={{ marginBottom: 5, display: "flex" }}>
                                                                     <div style={{
                                                                         backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                                        borderRadius: 6, padding: "5px 10px"
+                                                                        borderRadius: 6, padding: "5px 10px", cursor: "pointer",
                                                                     }}
                                                                         onClick={() => this.props.reportQuestion()}
                                                                     >

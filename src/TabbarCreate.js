@@ -22,7 +22,7 @@ class TabbarCreate extends React.Component {
 
     render() {
         return (
-            <div style={{ marginTop: "-20px" }}>
+            <div style={{ marginTop: "-20px", cursor: "pointer" }}>
                 <Icon24Write style={{
                     zIndex: 99999, marginBottom: 10, marginTop: 3,
                     backgroundColor: this.state.theme == "space_gray" ? "#2b7ede" : "rgb(70 145 230)",

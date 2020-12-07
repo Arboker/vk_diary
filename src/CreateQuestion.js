@@ -117,7 +117,7 @@ class CreateQuestion extends React.Component {
                         </div>
                         <Textarea onChange={this.answer} />
                     </div>
-                    <Button onClick={() => this.createQuestion()} size="xl">Создать вопрос</Button>
+                    <Button onClick={() => this.createQuestion()} style={{cursor: "pointer"}} size="xl">Создать вопрос</Button>
                 </div>
             </div>
         );
