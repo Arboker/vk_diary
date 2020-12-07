@@ -914,6 +914,7 @@ class App extends React.Component {
 									id={this.state.id}
 									errorModal={(error) => {
 										this.setActiveModal(MODAL_ERROR);
+										window.history.pushState({ panel: "modal" }, "modal");
 										this.setState({
 											errorMessage: error,
 											allowToGoBack: false,
