@@ -520,9 +520,11 @@ class App extends React.Component {
 					.then(data => console.log(JSON.stringify(data.result)))
 					.catch(error => console.log(error));
 				this.changeAdShown()
+				
 			}
 		}
 		const history = this.state.history;
+		console.log(this.state.adHistory)
 		const modal = (
 			<ModalRoot
 				activeModal={this.state.activeModal}
