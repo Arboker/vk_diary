@@ -403,7 +403,7 @@ class Question extends React.Component {
         body {
           margin: 0;
         }`;
-        const windowWidth = this.state.width+"px";
+        const windowWidth = this.state.width + "px";
         const viewBoxSvg = "0 0 1400 320";
         return (
             <div style={{ fontFamily: "'Fira Sans', sans-serif" }}>
@@ -434,7 +434,7 @@ class Question extends React.Component {
                                 position: "relative",
                                 width: windowWidth
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox={viewBoxSvg} width={windowWidth} style={{marginTop: "-3px"}}>
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox={viewBoxSvg} width={windowWidth} style={{ marginTop: "-3px" }}>
                                     <path fill={this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)"}
                                         style={{ width: windowWidth }}
                                         fillOpacity="1"
@@ -470,109 +470,111 @@ class Question extends React.Component {
                                                             {this.props.myQuestion ? (
                                                                 <div></div>
                                                             ) : (
-                                                                    <Icon28ReportOutline style={{ float: "right" }}
-                                                                        onClick={() => this.props.reportQuestion()} />
-                                                                )}
+                                                                    <div>
+                                                                        <Icon28ReportOutline style={{ float: "right", cursor: "pointer" }}
+                                                                            onClick={() => this.props.reportQuestion()} />
+                                                                        </div>
+                                                                            )}
                                                         </div>
                                                     )}
-                                            </div>
-                                        ) : (
-                                                <div></div>
+                                                                    </div>
+                                                                ) : (
+                                                            <div></div>
                                             )}
-                                        <div>
-                                            {this.state.answers.map(data => {
-                                                const monthNames = [' января',
-                                                    ' февраля',
-                                                    ' марта',
-                                                    ' апреля',
-                                                    ' мая',
-                                                    ' июня',
-                                                    ' июля',
-                                                    ' августа',
-                                                    ' сентября',
-                                                    ' октября',
-                                                    ' ноября',
-                                                    ' декабря'
-                                                ];
-                                                const date = data.date;
-                                                const month = date.slice(0, -3).substring(5).replace(/^0+/, '');
-                                                const day = date.substring(8).replace(/^0+/, '');
-                                                const year = date.slice(0, -6).replace(/^0+/, '');
-                                                return (
-                                                    <div style={{ marginBottom: 15 }} key={data.answerID}>
-                                                        <div style={{ display: "flex", alignItems: "center", marginBottom: 5 }}><Icon28CalendarOutline />
-                                                            <Text style={{ fontSize: 19, marginLeft: 3 }}> {day} {monthNames[month - 1]} {year}</Text> </div>
+                                                            <div>
+                                                                {this.state.answers.map(data => {
+                                                                    const monthNames = [' января',
+                                                                        ' февраля',
+                                                                        ' марта',
+                                                                        ' апреля',
+                                                                        ' мая',
+                                                                        ' июня',
+                                                                        ' июля',
+                                                                        ' августа',
+                                                                        ' сентября',
+                                                                        ' октября',
+                                                                        ' ноября',
+                                                                        ' декабря'
+                                                                    ];
+                                                                    const date = data.date;
+                                                                    const month = date.slice(0, -3).substring(5).replace(/^0+/, '');
+                                                                    const day = date.substring(8).replace(/^0+/, '');
+                                                                    const year = date.slice(0, -6).replace(/^0+/, '');
+                                                                    return (
+                                                                        <div style={{ marginBottom: 15 }} key={data.answerID}>
+                                                                            <div style={{ display: "flex", alignItems: "center", marginBottom: 5 }}><Icon28CalendarOutline />
+                                                                                <Text style={{ fontSize: 19, marginLeft: 3 }}> {day} {monthNames[month - 1]} {year}</Text> </div>
 
-                                                        <div style={{ display: "flex", alignItems: "center", marginBottom: 5, cursor: "pointer", justifyContent: "space-between" }}>
+                                                                            <div style={{ display: "flex", alignItems: "center", marginBottom: 5, cursor: "pointer", justifyContent: "space-between" }}>
 
-                                                            {/* <Text style={{ fontSize: 19, marginLeft: 5, wordBreak: "break-word" }}>{this.text_truncate(data.answer)}</Text> */}
-                                                            {this.text_truncate(data.answerID, data.answer)}
-                                                        </div>
-                                                    </div>
+                                                                                {/* <Text style={{ fontSize: 19, marginLeft: 5, wordBreak: "break-word" }}>{this.text_truncate(data.answer)}</Text> */}
+                                                                                {this.text_truncate(data.answerID, data.answer)}
+                                                                            </div>
+                                                                        </div>
 
-                                                )
-                                            })}
-                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
 
-                                        <div>
-                                            <div style={{ display: "flex", marginBottom: 5, marginRight: 5 }}>
-                                                <div style={{
-                                                    backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                    borderRadius: 6, padding: "5px 10px", cursor: "pointer",
-                                                }}
-                                                    onClick={() => this.share()}>
-                                                    <Icon24Share style={{ marginRight: 5, color: "white" }} />
-                                                    <Text style={{ fontSize: 18, color: "white" }}>Поделиться</Text>
-                                                </div>
-                                            </div>
-                                            <div style={{ display: "flex", marginBottom: 5 }}>
-                                                <div style={{
-                                                    backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
-                                                    borderRadius: 6, padding: "5px 10px", cursor: "pointer",
-                                                }}
-                                                    onClick={() => this.showHistory()}>
-                                                    <Icon24Story style={{ marginRight: 5, color: "white" }} />
-                                                    <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Спросить у друзей</Text>
-                                                </div>
-                                            </div>
-                                            {this.state.hrefInsert == "insertanswerusers" ? (
-                                                <div>
-                                                    {this.state.answers.length == 0 ? (
-                                                        <div>
-                                                            {!this.props.myQuestion ? (
-                                                                <div style={{ marginBottom: 5, display: "flex" }}>
+                                                            <div>
+                                                                <div style={{ display: "flex", marginBottom: 5, marginRight: 5 }}>
                                                                     <div style={{
                                                                         backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
                                                                         borderRadius: 6, padding: "5px 10px", cursor: "pointer",
                                                                     }}
-                                                                        onClick={() => this.props.reportQuestion()}
-                                                                    >
-                                                                        <Icon24Report style={{ marginRight: 5, color: "white" }} />
-                                                                        <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Пожаловаться</Text>
+                                                                        onClick={() => this.share()}>
+                                                                        <Icon24Share style={{ marginRight: 5, color: "white" }} />
+                                                                        <Text style={{ fontSize: 18, color: "white" }}>Поделиться</Text>
                                                                     </div>
                                                                 </div>
-                                                            ) : (
-                                                                    <div></div>
-                                                                )}
-                                                        </div>
-                                                    ) : (
-                                                            <div>
+                                                                <div style={{ display: "flex", marginBottom: 5 }}>
+                                                                    <div style={{
+                                                                        backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
+                                                                        borderRadius: 6, padding: "5px 10px", cursor: "pointer",
+                                                                    }}
+                                                                        onClick={() => this.showHistory()}>
+                                                                        <Icon24Story style={{ marginRight: 5, color: "white" }} />
+                                                                        <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Спросить у друзей</Text>
+                                                                    </div>
+                                                                </div>
+                                                                {this.state.hrefInsert == "insertanswerusers" ? (
+                                                                    <div>
+                                                                        {this.state.answers.length == 0 ? (
+                                                                            <div>
+                                                                                {!this.props.myQuestion ? (
+                                                                                    <div style={{ marginBottom: 5, display: "flex" }}>
+                                                                                        <div style={{
+                                                                                            backgroundColor: this.props.theme == "space_gray" ? "#2b7ede" : "rgb(70, 145, 230)", display: "flex", alignItems: "center",
+                                                                                            borderRadius: 6, padding: "5px 10px", cursor: "pointer",
+                                                                                        }}
+                                                                                            onClick={() => this.props.reportQuestion()}
+                                                                                        >
+                                                                                            <Icon24Report style={{ marginRight: 5, color: "white" }} />
+                                                                                            <Text style={{ fontSize: 18, color: "white", cursor: "pointer" }}>Пожаловаться</Text>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ) : (
+                                                                                        <div></div>
+                                                                                    )}
+                                                                            </div>
+                                                                        ) : (
+                                                                                <div>
+                                                                                </div>
+                                                                            )}
+                                                                    </div>
+                                                                ) : (
+                                                                        <div></div>
+                                                                    )}
                                                             </div>
-                                                        )}
-                                                </div>
-                                            ) : (
-                                                    <div></div>
-                                                )}
-                                        </div>
-                                        <Button mode="secondary" size="xl" style={{ cursor: "pointer", marginTop: 10 }} onClick={() => this.changeScreen(this.state.question)}>Добавить ответ</Button>
-                                    </div>
-                                )}
-                        </div>
+                                                            <Button mode="secondary" size="xl" style={{ cursor: "pointer", marginTop: 10 }} onClick={() => this.changeScreen(this.state.question)}>Добавить ответ</Button>
+                                                        </div>
+                                                    )}
+                                            </div>
                     </div>
-                ) : (
+                                ) : (
                         <div>
-                            <Spinner size="medium" style={{ marginTop: 20 }} />
-                        </div>
+                                <Spinner size="medium" style={{ marginTop: 20 }} />
+                            </div>
                     )
                 }
             </div>

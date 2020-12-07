@@ -434,7 +434,7 @@ class App extends React.Component {
 					this.setState({
 						loadedCreator: true,
 						activePanel: "question", activeStory: "QuesUsers", isNewNow: false, questionTitle: item.question, hrefInsert: 'insertanswerusers',
-						creator: item.creator, questionId: question_id,
+						creator: item.creator, questionId: question_id, idQuestion: question_id,
 						answerTitle: "", history: [...this.state.history, "QuesUsers", "question"], loadingAnswer: true
 					})
 				}
@@ -445,6 +445,7 @@ class App extends React.Component {
 	}
 
 	reportQuestion = () => {
+		console.log(JSON.stringify({ questionID: this.state.idQuestion, text: this.state.reportText }))
 		this.handleConnectionChange();
 		if (this.checkConnection()) {
 			if (this.state.reportText.replace(/\s/g, '').length > 999) {
