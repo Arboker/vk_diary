@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	Tabbar, TabbarItem, Panel, PanelHeader, View, PanelHeaderBack, Epic,
 	ModalCard, ModalRoot, Textarea, ActionSheet, ActionSheetItem, ScreenSpinner, Alert, Text,
-	Button
+	Button, Link
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import error from './img/error.png'
@@ -25,6 +25,10 @@ import Icon56ErrorOutline from '@vkontakte/icons/dist/56/error_outline';
 import Icon28NewsfeedOutline from '@vkontakte/icons/dist/28/newsfeed_outline';
 import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
 import Icon28DeleteOutlineAndroid from '@vkontakte/icons/dist/28/delete_outline_android';
+
+import Icon28MenuOutline from '@vkontakte/icons/dist/28/menu_outline';
+import Icon24LinkCircle from '@vkontakte/icons/dist/24/link_circle';
+import Icon28ShareExternal from '@vkontakte/icons/dist/28/share_external';
 
 const MODAL_ERROR = "error";
 const MODAL_QUESTION = "question";
@@ -88,6 +92,7 @@ class App extends React.Component {
 		};
 		this.openDefault = this.openDefault.bind(this);
 		this.openQuestion = this.openQuestion.bind(this);
+		this.openSetings = this.openSetings.bind(this);
 		this.closePopout = this.closePopout.bind(this);
 	}
 
@@ -166,6 +171,24 @@ class App extends React.Component {
 					>
 						Удалить ответ
         </ActionSheetItem>
+				</ActionSheet>
+		});
+	}
+
+	openSetings() {
+		this.setState({
+			popout:
+				<ActionSheet onClose={() => this.setState({ popout: null })}>
+					<Link href="https://vk.com/inad_lab" target="_blank">
+						<ActionSheetItem style={{borderRadius: "14px 14px 0 0"}} autoclose before={<Icon24LinkCircle />}>
+							Сообщество разработчиков
+					</ActionSheetItem>
+					</Link>
+					<Link href="https://vk.com/topic-196911520_46710081" target="_blank" style={{ color: "var(--action_sheet_action_foreground)" }}>
+						<ActionSheetItem style={{borderRadius: "0 0 14px 14px"}} autoclose before={<Icon28ShareExternal width="24" height="24" />}>
+							Предложить идею
+					</ActionSheetItem>
+					</Link>
 				</ActionSheet>
 		});
 	}
@@ -520,7 +543,7 @@ class App extends React.Component {
 					.then(data => console.log(JSON.stringify(data.result)))
 					.catch(error => console.log(error));
 				this.changeAdShown()
-				
+
 			}
 		}
 		const history = this.state.history;
@@ -632,7 +655,7 @@ class App extends React.Component {
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'panel1'}
 								data-story="panel1"
-							><Icon28HomeOutline width={24} height={24} style={{cursor: "pointer"}} /></TabbarItem>
+							><Icon28HomeOutline width={24} height={24} style={{ cursor: "pointer" }} /></TabbarItem>
 							<TabbarItem
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'CreateQuestion'}
@@ -642,7 +665,7 @@ class App extends React.Component {
 								onClick={this.onStoryChange}
 								selected={this.state.activeStory === 'QuesUsers'}
 								data-story="QuesUsers"
-							><Icon28NewsfeedOutline width={24} height={24} style={{cursor: "pointer"}} /></TabbarItem>
+							><Icon28NewsfeedOutline width={24} height={24} style={{ cursor: "pointer" }} /></TabbarItem>
 						</Tabbar>
 					}>
 
@@ -670,9 +693,9 @@ class App extends React.Component {
 									id={this.state.id}
 									canLoadQuestion={this.state.canLoadQuestion}
 									changeLoading={() => this.setState({ canLoadQuestion: false })}
-									changeScreenApp={(screen) => 
+									changeScreenApp={(screen) =>
 										this.setState({ activePanel: screen, history: [...this.state.history, screen], adHistory: [...this.state.adHistory, "new"] }
-											)}
+										)}
 								/>
 							</Panel>
 
@@ -801,7 +824,10 @@ class App extends React.Component {
 						>
 
 							<Panel id="QuesUsers">
-								<PanelHeader>Лента</PanelHeader>
+								<PanelHeader separator={false} left={<Icon28MenuOutline width="24" height="24"
+									style={{ cursor: "pointer", padding: 8 }} onClick={() => this.openSetings()} />}>
+									Лента
+			  </PanelHeader>
 								<QuesUsers
 									theme={this.state.theme}
 									changeQuestion={(isNew, name, answer, creator, questionId, myQuestion) => {
@@ -844,7 +870,7 @@ class App extends React.Component {
 										this.setState({
 											activePanel: "question", isNewNow: isNew, questionTitle: name, hrefInsert: 'insertanswerusers',
 											answerTitle: answer, history: [...this.state.history, "question"], loadingAnswer: true,
-											creator: creator, idQuestion: questionId,adHistory: [...this.state.adHistory, "new"]
+											creator: creator, idQuestion: questionId, adHistory: [...this.state.adHistory, "new"]
 										})
 									}}
 								/>
