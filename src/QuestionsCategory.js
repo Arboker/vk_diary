@@ -77,7 +77,7 @@ class Main extends React.Component {
                                 day = date.substring(8).replace(/^0+/, '');
                             }
                             return (
-                                <div style={{ filter: !item.isAnswered ? "brightness(0.8)" : "" }} key={item.id}>
+                                <div style={{ filter: !item.isAnswered ? this.state.theme == "space_gray" ? "brightness(0.8)" : "" : "" }} key={item.id}>
                                     {!item.isAnswered ? (
                                         <div style={{
                                             background: this.props.theme == "space_gray" ? "rgb(234 67 67)" : '#ff5e5e',
