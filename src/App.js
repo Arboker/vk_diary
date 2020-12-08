@@ -26,7 +26,7 @@ import Icon28NewsfeedOutline from '@vkontakte/icons/dist/28/newsfeed_outline';
 import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
 import Icon28DeleteOutlineAndroid from '@vkontakte/icons/dist/28/delete_outline_android';
 
-import Icon28MenuOutline from '@vkontakte/icons/dist/28/menu_outline';
+import Icon28Menu from '@vkontakte/icons/dist/28/menu';
 import Icon24LinkCircle from '@vkontakte/icons/dist/24/link_circle';
 import Icon28ShareExternal from '@vkontakte/icons/dist/28/share_external';
 
@@ -547,7 +547,6 @@ class App extends React.Component {
 			}
 		}
 		const history = this.state.history;
-		console.log(this.state.adHistory)
 		const modal = (
 			<ModalRoot
 				activeModal={this.state.activeModal}
@@ -824,7 +823,7 @@ class App extends React.Component {
 						>
 
 							<Panel id="QuesUsers">
-								<PanelHeader separator={false} left={<Icon28MenuOutline width="24" height="24"
+								<PanelHeader separator={false} left={<Icon28Menu width="24" height="24"
 									style={{ cursor: "pointer", padding: 8 }} onClick={() => this.openSetings()} />}>
 									Лента
 			  </PanelHeader>
